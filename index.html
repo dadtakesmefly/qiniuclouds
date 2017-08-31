@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="css.css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="template.js"></script>
+    <title>七牛云存储</title>
+</head>
+<body>
+        <header>使用七牛外链图片注意事项</header>
+        <p>1. 七牛获取的图片地址，不带后缀jpg或png的图片，或者地址中带有localhost等字样的地址，在安卓微信浏览器不能正常显示，苹果则可以</p>
+        <p>2. 小米自带浏览器会将第一个图片拦截 默认是广告链接 其他浏览器不会</p>
+        <img src="http://or9dun107.bkt.clouddn.com/CTS_1503372316001_file.jpg" alt=""/>
+        <p>3. 配置了域名的外链，小米自带浏览器不会拦截</p>
+        <img src="http://blog.qiniu.com/wp-content/themes/vortex/images/architecture-pratice.jpg" alt=""/>
+        <p>4. 普通格式 JPG JPEG 等不存在兼容性，浏览器和移动端都能正常解析</p>
+        <img src="https://image.cnaisin.com/A_Production_8lp5IazwESKR_1502346934040.jpg" alt=""/>
+        <p>5. webp格式存在兼容性，除了google浏览器和安卓手机 其他不支持，虽然七牛外链地址后缀是JPG,可格式依旧是webp</p>
+        <img src="https://image.cnaisin.com/A_Production_6aQXdyLoqadg_1504088044564.jpg" alt=""/>
+        <p>6. 将上面webp格式强制转换为JPG格式 ，添加 ?imageMogr2/format/jpg 即可</p>
+        <img src="https://image.cnaisin.com/A_Production_6aQXdyLoqadg_1504088044564.jpg?imageMogr2/format/jpg" alt=""/>
+        <p>7. 骑牛压缩图片 , 添加 ?imageMogr2/size-limit/10k! 可自行对比</p>
+        <img src="http://or9dun107.bkt.clouddn.com/CTS_1503372316001_file.jpg?imageMogr2/size-limit/10k!" alt=""/>
+        <p>在ajax中处理图片 旋转180°</p>
+        <img class="ajax" src="" alt=""/>
+        <p>在template.js 模板引擎中处理 从正中心裁减</p>
+        <div class="template">
+        </div>
+        <p><a target="_blank" href="https://developer.qiniu.com/dora/manual/1270/the-advanced-treatment-of-images-imagemogr2">点击查看更多API</a></p>
+</body>
+<script type="text/html" id="img">
+    {{if imgurls}}
+    <img src="{{imgurls+'?imageMogr2/gravity/Center/crop/300x300'}}" alt=""/>
+    {{/if}}
+</script>
+<script>
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if(clientWidth>=640){
+                        docEl.style.fontSize = '100px';
+                    }else{
+                        docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                    }
+                };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+    $.ajax({
+        url:"json.json",
+        type:"post",
+        success: function (data) {
+            console.log(data);
+            data.imgUrl =  data.imgUrl +"?imageMogr2/rotate/180"
+            $(".ajax").attr("src",data.imgUrl)
+            var html = template("img",data)
+            $(".template").html(html)
+        }
+    })
+</script>
+</html>
