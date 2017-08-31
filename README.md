@@ -7,7 +7,7 @@
 - webp格式存在兼容性，除了google浏览器和安卓手机 其他不支持，虽然七牛外链地址后缀是JPG,可格式依旧是webp
 - 将webp格式强制转换为JPG格式 ，添加 ?imageMogr2/format/jpg 即可
 - 骑牛压缩图片 , 添加 ?imageMogr2/size-limit/10k! 可自行对比
-- 点击查看更多API
+- [点击查看更多API](https://developer.qiniu.com/dora/manual/1270/the-advanced-treatment-of-images-imagemogr2)
 
 
 ### webp格式兼容性问题
