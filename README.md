@@ -11,8 +11,7 @@
 - 骑牛压缩图片 , 添加 ?imageMogr2/size-limit/10k! 可自行对比
 - [点击查看更多API](https://developer.qiniu.com/dora/manual/1270/the-advanced-treatment-of-images-imagemogr2)
 - 缩略图设置长宽比例
-![img](http://or9dun107.bkt.clouddn.com/CTS_1503372316001_file.jpg?imageView2/1/w/283/h/425)
-
+- ![img](http://or9dun107.bkt.clouddn.com/CTS_1503372316001_file.jpg?imageView2/1/w/283/h/425)
 ### webp格式兼容性问题
 ![img](images/QQ截图20170831130750.png)
 ### 强制转换后
